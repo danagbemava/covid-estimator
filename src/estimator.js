@@ -28,8 +28,8 @@ const covid19ImpactEstimator = (data) => {
   const infectionRate = Math.trunc(getNumberOfDays(periodType, timeToElapse) / 3);
 
 
-  severeImpact.infectionsByRequestedTime = (2 ** infectionRate) * (reportedCases * 10);
-  impact.infectionsByRequestedTime = (2 ** infectionRate) * (reportedCases * 50);
+  severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** infectionRate);
+  impact.infectionsByRequestedTime = impact.currentlyInfected * (2 ** infectionRate);
 
 
   return {
