@@ -18,15 +18,18 @@ const calcReqIcuCare = (severe) => severe * 0.05;
 
 const calcReqVent = (severe) => severe * 0.02;
 
-// const calcDollarsInFlight = (infections, dayInc, popInc) => infections * dayInc * popInc * 30;
+const calcDollarsInFlight = (infections,
+  dayInc,
+  popInc,
+  period) => infections * dayInc * popInc * period;
 
 const covid19ImpactEstimator = (data) => {
   const {
     reportedCases,
     periodType,
     timeToElapse,
-    totalHospitalBeds
-    // region
+    totalHospitalBeds,
+    region
   } = data;
 
   const impact = {};
@@ -62,17 +65,19 @@ const covid19ImpactEstimator = (data) => {
     severeImpact.infectionsByRequestedTime
   );
 
-  // impact.dollarsInFlight = calcDollarsInFlight(
-  //   impact.infectionsByRequestedTime,
-  //   region.avgDailyIncomeInUSD,
-  //   region.avgDailyIncomePopulation
-  // );
+  impact.dollarsInFlight = calcDollarsInFlight(
+    impact.infectionsByRequestedTime,
+    region.avgDailyIncomeInUSD,
+    region.avgDailyIncomePopulation,
+    getNumberOfDays(periodType, timeToElapse)
+  );
 
-  // severeImpact.dollarsInFlight = calcDollarsInFlight(
-  //   severeImpact.infectionsByRequestedTime,
-  //   region.avgDailyIncomeInUSD,
-  //   region.avgDailyIncomePopulation
-  // );
+  severeImpact.dollarsInFlight = calcDollarsInFlight(
+    severeImpact.infectionsByRequestedTime,
+    region.avgDailyIncomeInUSD,
+    region.avgDailyIncomePopulation,
+    getNumberOfDays(periodType, timeToElapse)
+  );
 
   return {
     data,
