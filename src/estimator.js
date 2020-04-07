@@ -18,15 +18,15 @@ const calcReqIcuCare = (severe) => severe * 0.05;
 
 const calcReqVent = (severe) => severe * 0.02;
 
-const calcDollarsInFlight = (infections, dayInc, popInc) => infections * dayInc * popInc * 30;
+// const calcDollarsInFlight = (infections, dayInc, popInc) => infections * dayInc * popInc * 30;
 
 const covid19ImpactEstimator = (data) => {
   const {
     reportedCases,
     periodType,
     timeToElapse,
-    totalHospitalBeds,
-    region
+    totalHospitalBeds
+    // region
   } = data;
 
   const impact = {};
