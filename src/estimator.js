@@ -14,12 +14,19 @@ const getNumberOfDays = (periodType, timeToElapse) => {
 
 const calcHospitalSpace = (hospitalBeds, casesByTime) => (hospitalBeds * 0.35) - casesByTime;
 
+const calcReqIcuCare = (severe) => severe * 0.05;
+
+const calcReqVent = (severe) => severe * 0.02;
+
+const calcDollarsInFlight = (infections, dayInc, popInc) => infections * dayInc * popInc * 30;
+
 const covid19ImpactEstimator = (data) => {
   const {
     reportedCases,
     periodType,
     timeToElapse,
-    totalHospitalBeds
+    totalHospitalBeds,
+    region
   } = data;
 
   const impact = {};
@@ -46,6 +53,26 @@ const covid19ImpactEstimator = (data) => {
     severeImpact.severeCasesByRequestedTime
   );
 
+  impact.casesForICUByRequestedTime = calcReqIcuCare(impact.infectionsByRequestedTime);
+  severeImpact.casesForICUByRequestedTime = calcReqIcuCare(severeImpact.infectionsByRequestedTime);
+
+  impact.casesForVentilatorsByRequestedTime = calcReqVent(impact.infectionsByRequestedTime);
+
+  severeImpact.casesForVentilatorsByRequestedTime = calcReqVent(
+    severeImpact.infectionsByRequestedTime
+  );
+
+  impact.dollarsInFlight = calcDollarsInFlight(
+    impact.infectionsByRequestedTime,
+    region.avgDailyIncomeInUSD,
+    region.avgDailyIncomePopulation
+  );
+
+  severeImpact.dollarsInFlight = calcDollarsInFlight(
+    severeImpact.infectionsByRequestedTime,
+    region.avgDailyIncomeInUSD,
+    region.avgDailyIncomePopulation
+  );
 
   return {
     data,
