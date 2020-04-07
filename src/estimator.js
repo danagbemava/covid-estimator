@@ -12,6 +12,8 @@ const getNumberOfDays = (periodType, timeToElapse) => {
   }
 };
 
+const calcHospitalSpace = (hospitalBeds, casesByTime) => (hospitalBeds * 0.35) - casesByTime;
+
 const covid19ImpactEstimator = (data) => {
   const {
     reportedCases,
@@ -34,8 +36,15 @@ const covid19ImpactEstimator = (data) => {
   impact.severeCasesByRequestedTime = impact.infectionsByRequestedTime * 0.15;
   severeImpact.severeCasesByRequestedTime = severeImpact.infectionsByRequestedTime * 0.15;
 
-  impact.hospitalBedsByRequestedTime = (totalHospitalBeds * 0.35) - impact.severeCasesByRequestedTime;
-  severeImpact.hospitalBedsByRequestedTime = (totalHospitalBeds * 0.35) - severeImpact.severeCasesByRequestedTime;
+  impact.hospitalBedsByRequestedTime = calcHospitalSpace(
+    totalHospitalBeds,
+    impact.severeCasesByRequestedTime
+  );
+
+  severeImpact.hospitalBedsByRequestedTime = calcHospitalSpace(
+    totalHospitalBeds,
+    severeImpact.severeCasesByRequestedTime
+  );
 
 
   return {
