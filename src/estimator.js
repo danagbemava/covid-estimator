@@ -75,7 +75,7 @@ const calculateSevereImpact = (data) => {
 
   severeImpact.currentlyInfected = reportedCases * 50;
 
-  const infectionRate = Math.trunc(getNumberOfDays(periodType, timeToElapse) / 3);
+  const infectionRate = parseInt((getNumberOfDays(periodType, timeToElapse) / 3).toFixed(0), 10);
 
   severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** infectionRate);
 
