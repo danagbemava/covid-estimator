@@ -18,10 +18,10 @@ const calcReqIcuCare = (severe) => severe * 0.05;
 
 const calcReqVent = (severe) => severe * 0.02;
 
-const calcDollarsInFlight = (infections,
-  dayInc,
-  popInc,
-  period) => infections * dayInc * popInc * period;
+// const calcDollarsInFlight = (infections,
+//   dayInc,
+//   popInc,
+//   period) => infections * dayInc * popInc * period;
 
 
 const calculateImpact = (data) => {
@@ -29,8 +29,8 @@ const calculateImpact = (data) => {
     reportedCases,
     periodType,
     timeToElapse,
-    totalHospitalBeds,
-    region
+    totalHospitalBeds
+    // region
   } = data;
 
   const impact = {};
@@ -52,12 +52,12 @@ const calculateImpact = (data) => {
 
   impact.casesForVentilatorsByRequestedTime = calcReqVent(impact.infectionsByRequestedTime);
 
-  impact.dollarsInFlight = calcDollarsInFlight(
-    impact.infectionsByRequestedTime,
-    region.avgDailyIncomeInUSD,
-    region.avgDailyIncomePopulation,
-    getNumberOfDays(periodType, timeToElapse)
-  );
+  // impact.dollarsInFlight = calcDollarsInFlight(
+  //   impact.infectionsByRequestedTime,
+  //   region.avgDailyIncomeInUSD,
+  //   region.avgDailyIncomePopulation,
+  //   getNumberOfDays(periodType, timeToElapse)
+  // );
 
   return impact;
 };
@@ -67,8 +67,8 @@ const calculateSevereImpact = (data) => {
     reportedCases,
     periodType,
     timeToElapse,
-    totalHospitalBeds,
-    region
+    totalHospitalBeds
+    // region
   } = data;
 
   const severeImpact = {};
@@ -93,12 +93,12 @@ const calculateSevereImpact = (data) => {
     severeImpact.infectionsByRequestedTime
   );
 
-  severeImpact.dollarsInFlight = calcDollarsInFlight(
-    severeImpact.infectionsByRequestedTime,
-    region.avgDailyIncomeInUSD,
-    region.avgDailyIncomePopulation,
-    getNumberOfDays(periodType, timeToElapse)
-  );
+  // severeImpact.dollarsInFlight = calcDollarsInFlight(
+  //   severeImpact.infectionsByRequestedTime,
+  //   region.avgDailyIncomeInUSD,
+  //   region.avgDailyIncomePopulation,
+  //   getNumberOfDays(periodType, timeToElapse)
+  // );
 
   return severeImpact;
 };
