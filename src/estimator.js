@@ -4,10 +4,8 @@ const convertWeeksToDays = (weeks) => weeks * 7;
 const getNumberOfDays = (periodType, timeToElapse) => {
   switch (periodType) {
     case 'months':
-    case 'month':
       return convertMonthsToDays(timeToElapse);
     case 'weeks':
-    case 'week':
       return convertWeeksToDays(timeToElapse);
     default:
       return timeToElapse;
