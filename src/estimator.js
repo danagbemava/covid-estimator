@@ -16,14 +16,14 @@ const calcHospitalSpace = (hospitalBeds, casesByTime) => Math.trunc(
   (hospitalBeds * 0.35) - casesByTime
 );
 
-const calcReqIcuCare = (severe) => Math.trunc(severe / 0.05);
+const calcReqIcuCare = (severe) => Math.trunc(severe * 0.05);
 
 const calcReqVent = (severe) => Math.trunc(severe * 0.02);
 
 const calcDollarsInFlight = (infections,
   dayInc,
   popInc,
-  period) => ((infections * dayInc) * popInc * period);
+  period) => Math.trunc((infections * dayInc * popInc) * period);
 
 
 const calculateImpact = (data) => {
