@@ -25,7 +25,7 @@ const calcReqVent = (severe) => Math.trunc(severe * 0.02);
 const calcDollarsInFlight = (infections,
   dayInc,
   popInc,
-  period) => Math.trunc((infections * dayInc * popInc) / period);
+  period) => Math.trunc((infections * dayInc) * popInc * period);
 
 
 const calculateImpact = (data) => {
