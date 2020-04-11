@@ -14,13 +14,13 @@ const getNumberOfDays = (periodType, timeToElapse) => {
   }
 };
 
-const calcHospitalSpace = (hospitalBeds, casesByTime) => (
+const calcHospitalSpace = (hospitalBeds, casesByTime) => Math.trunc(
   (hospitalBeds * 0.35) - casesByTime
 );
 
 const calcReqIcuCare = (severe) => Math.trunc(severe * 0.05);
 
-const calcReqVent = (severe) => Math.trunc(severe * 0.02);
+const calcReqVent = (severe) => (severe * 0.02);
 
 const calcDollarsInFlight = (infections,
   dayInc,
