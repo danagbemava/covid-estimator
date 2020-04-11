@@ -14,18 +14,18 @@ const getNumberOfDays = (periodType, timeToElapse) => {
   }
 };
 
-const calcHospitalSpace = (hospitalBeds, casesByTime) => Math.trunc(
+const calcHospitalSpace = (hospitalBeds, casesByTime) => (
   (hospitalBeds * 0.35) - casesByTime
 );
 
-const calcReqIcuCare = (severe) => Math.trunc(severe * 0.05);
+const calcReqIcuCare = (severe) => severe * 0.05;
 
-const calcReqVent = (severe) => Math.trunc(severe * 0.02);
+const calcReqVent = (severe) => severe * 0.02;
 
 const calcDollarsInFlight = (infections,
   dayInc,
   popInc,
-  period) => Math.trunc((infections * dayInc) * popInc * period);
+  period) => ((infections * dayInc) * popInc * period);
 
 
 const calculateImpact = (data) => {
@@ -81,13 +81,9 @@ const calculateSevereImpact = (data) => {
 
   const infectionRate = Math.trunc(getNumberOfDays(periodType, timeToElapse) / 3);
 
-  severeImpact.infectionsByRequestedTime = Math.trunc(
-    severeImpact.currentlyInfected * (2 ** infectionRate)
-  );
+  severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** infectionRate);
 
-  severeImpact.severeCasesByRequestedTime = Math.trunc(
-    severeImpact.infectionsByRequestedTime * 0.15
-  );
+  severeImpact.severeCasesByRequestedTime = severeImpact.infectionsByRequestedTime * 0.15;
 
   severeImpact.hospitalBedsByRequestedTime = calcHospitalSpace(
     totalHospitalBeds,
