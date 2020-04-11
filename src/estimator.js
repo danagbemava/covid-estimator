@@ -14,7 +14,7 @@ const getNumberOfDays = (periodType, timeToElapse) => {
   }
 };
 
-const calcHospitalSpace = (hospitalBeds, casesByTime) => (
+const calcHospitalSpace = (hospitalBeds, casesByTime) => Math.trunc(
   (hospitalBeds * 0.35) - casesByTime
 );
 
